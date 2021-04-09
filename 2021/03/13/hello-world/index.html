@@ -20,7 +20,7 @@
   <meta name="author" content="ruanlin">
   <meta name="keywords" content="">
   
-  <title>旧项目接入qiankun微前端方案实践 - ruanlin</title>
+  <title>旧项目接入qiankun微前端方案实践——hash模式 - ruanlin</title>
 
   <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
 
@@ -58,7 +58,7 @@
 
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
-    var CONFIG = {"hostname":"ruanlin.github.io","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+    var CONFIG = {"hostname":"ruanlin.github.io","root":"/","version":"1.8.8","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"copy_btn":true,"image_zoom":{"enable":true},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
   </script>
   <script  src="/js/utils.js" ></script>
   <script  src="/js/color-schema.js" ></script>
@@ -165,7 +165,7 @@
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
           <div class="page-header text-center fade-in-up">
-            <span class="h2" id="subtitle" title="旧项目接入qiankun微前端方案实践">
+            <span class="h2" id="subtitle" title="旧项目接入qiankun微前端方案实践——hash模式">
               
             </span>
 
@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      813 字
+      797 字
     </span>
   
 
@@ -227,15 +227,15 @@
         <div class="py-5" id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">旧项目接入qiankun微前端方案实践</h1>
+            <h1 style="display: none">旧项目接入qiankun微前端方案实践——hash模式</h1>
             
             <div class="markdown-body">
-              <h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><p>这里先放一个官方文档链接：<a target="_blank" rel="noopener" href="https://qiankun.umijs.org/zh/guide/getting-started">qiankun</a><br>基本的操作，包括各种接入调用，基础配置啥的，感兴趣的同学，可以自行点击上面的官网链接查看。<br>这里，我主要阐述一下，把<a href="">二次开发平台</a>作为主应用，如何与业务子应用对接开发。</p>
+              <h3 id="1、前言"><a href="#1、前言" class="headerlink" title="1、前言"></a>1、前言</h3><p>这里先放一个官方文档链接：<a target="_blank" rel="noopener" href="https://qiankun.umijs.org/zh/guide/getting-started">qiankun</a><br>基本的操作，包括各种接入调用，基础配置啥的，感兴趣的同学，可以自行点击上面的官网链接查看。<br>这里，我主要阐述一下，作为主应用如何与业务子应用对接开发。</p>
 <h3 id="2、在主应用中注册微应用"><a href="#2、在主应用中注册微应用" class="headerlink" title="2、在主应用中注册微应用"></a>2、在主应用中注册微应用</h3><p>每增加一个子应用都要配置一个对象</p>
 <figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs awk">registerMicroApps([<br>  &#123;<br>    name: <span class="hljs-string">&#x27;react app&#x27;</span>, <span class="hljs-regexp">//</span> 子应用名称<br>    entry: <span class="hljs-string">&#x27;//localhost:7100&#x27;</span>,  <span class="hljs-regexp">//</span> 子应用访问域名<br>    container: <span class="hljs-string">&#x27;#yourContainer&#x27;</span>, <span class="hljs-regexp">//</span> 子应用放置节点id<br>    activeRule: <span class="hljs-string">&#x27;/yourActiveRule&#x27;</span>, <span class="hljs-regexp">//</span> 路由规则<br>  &#125;<br>]);<br><br></code></pre></td></tr></table></figure>
 
 <p>这里面 container 是给装子应用的容器，一般是 div 给个 ID 就行，具体放在哪个页面，由你自己的业务决定。<br>activeRule 是路由规则，根据路由模式决定，下面会着重讲。</p>
-<h3 id="3、关于-activeRule（路由规则），主应用和子应用分别怎么设置"><a href="#3、关于-activeRule（路由规则），主应用和子应用分别怎么设置" class="headerlink" title="3、关于 activeRule（路由规则），主应用和子应用分别怎么设置"></a>3、关于 activeRule（路由规则），主应用和子应用分别怎么设置</h3><p>由于<a href="">二次开发平台</a>的路由一直以来选用的是 hash 模式，所以目前不管是子应用还是二次开发平台主应用，都只推荐是用 hash 模式，才能更平滑且低成本低的接入 qiankun 微前端方案。</p>
+<h3 id="3、关于-activeRule（路由规则），主应用和子应用分别怎么设置"><a href="#3、关于-activeRule（路由规则），主应用和子应用分别怎么设置" class="headerlink" title="3、关于 activeRule（路由规则），主应用和子应用分别怎么设置"></a>3、关于 activeRule（路由规则），主应用和子应用分别怎么设置</h3><p>由于主应用的路由一直以来选用的是 hash 模式，所以目前不管是子应用还是主应用，都只推荐是用 hash 模式，才能更平滑且低成本低的接入 qiankun 微前端方案。</p>
 <figure class="highlight dts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs dts">registerMicroApps([<br>  &#123;<br><span class="hljs-symbol">    name:</span> <span class="hljs-string">&quot;vueApp&quot;</span>,<br><span class="hljs-symbol">    entry:</span> <span class="hljs-string">&quot;//192.168.20.49:8080&quot;</span>,<br><span class="hljs-symbol">    container:</span> <span class="hljs-string">&quot;#appContainer&quot;</span>,<br><span class="hljs-symbol">    activeRule:</span> <span class="hljs-string">&quot;/#/micro/app-vue&quot;</span><br>  &#125;<br>]);<br></code></pre></td></tr></table></figure>
 
 <p>这是我本地的一个 demo 例子，点击菜单打开子应用，那就在本身的路由视图那里加一个 id 为 appContainer 的 div，双方都用 hash 模式，activeRule 要加上’/#/‘，micro 是我单独给子应用加的一个路由目录。</p>
@@ -338,6 +338,30 @@
      <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
   </div>
   
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
 
   
 
@@ -393,6 +417,8 @@
 
 
 
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
 
 
 
@@ -431,6 +457,19 @@
 
 
 
+
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
 
 
 
