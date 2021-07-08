@@ -187,7 +187,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      797 字
+      901 字
     </span>
   
 
@@ -197,7 +197,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      12
        分钟
     </span>
   
@@ -249,6 +249,8 @@
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">import</span> Home <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../views/Home.vue&quot;</span>;<br><br><span class="hljs-keyword">let</span> prefix = <span class="hljs-string">&quot;&quot;</span>;<br><br><span class="hljs-comment">// 判断是 qiankun 环境则增加路由前缀</span><br><span class="hljs-keyword">if</span> (<span class="hljs-built_in">window</span>.__POWERED_BY_QIANKUN__) &#123;<br>  prefix = <span class="hljs-string">&quot;/micro/app-vue&quot;</span>;<br>&#125;<br><br><span class="hljs-keyword">const</span> routes = [<br>  &#123;<br>    path: prefix + <span class="hljs-string">&quot;/&quot;</span>,<br>    name: <span class="hljs-string">&quot;home&quot;</span>,<br>    component: Home,<br>  &#125;,<br>  &#123;<br>    path: prefix + <span class="hljs-string">&quot;/about&quot;</span>,<br>    name: <span class="hljs-string">&quot;about&quot;</span>,<br>    <span class="hljs-comment">// route level code-splitting</span><br>    <span class="hljs-comment">// this generates a separate chunk (about.[hash].js) for this route</span><br>    <span class="hljs-comment">// which is lazy-loaded when the route is visited.</span><br>    component: <span class="hljs-function">() =&gt;</span><br>      <span class="hljs-keyword">import</span>(<span class="hljs-comment">/* webpackChunkName: &quot;about&quot; */</span> <span class="hljs-string">&quot;../views/About.vue&quot;</span>),<br>  &#125;,<br>];<br><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> routes;<br></code></pre></td></tr></table></figure>
 
 <p>看到这里，你应该明白了，路由规则得保持跟主应用中一致，才能保证命中。</p>
+<h3 id="5、子应用还需要配置微应用的打包工具"><a href="#5、子应用还需要配置微应用的打包工具" class="headerlink" title="5、子应用还需要配置微应用的打包工具"></a>5、子应用还需要配置微应用的打包工具</h3><p>除了代码中暴露出相应的生命周期钩子之外，为了让主应用能正确识别微应用暴露出来的一些信息，微应用的打包工具需要增加如下配置</p>
+<h4 id="webpack"><a href="#webpack" class="headerlink" title="webpack"></a>webpack</h4><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><br><span class="hljs-keyword">const</span> packageName = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;./package.json&#x27;</span>).name;<br><br><span class="hljs-built_in">module</span>.exports = &#123;<br>  output: &#123;<br>    library: <span class="hljs-string">`<span class="hljs-subst">$&#123;packageName&#125;</span>-[name]`</span>,<br>    libraryTarget: <span class="hljs-string">&#x27;umd&#x27;</span>,<br>    jsonpFunction: <span class="hljs-string">`webpackJsonp_<span class="hljs-subst">$&#123;packageName&#125;</span>`</span>,<br>  &#125;,<br>&#125;;<br></code></pre></td></tr></table></figure>
 
             </div>
             <hr>
